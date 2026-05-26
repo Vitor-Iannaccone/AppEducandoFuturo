@@ -2,11 +2,63 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="AppEducandoFuturo.Views.Educador.InserirAtividadePage"
-             Title="InserirAtividadePage">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+             Title="Inserir Atividade"
+             BackgroundColor="#F5F5F5">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="15">
+
+            <Frame BackgroundColor="#1565C0" CornerRadius="12" Padding="20">
+                <Label Text="✏️ Nova Atividade"
+                       FontSize="20" FontAttributes="Bold" TextColor="White"/>
+            </Frame>
+
+            <Frame BackgroundColor="White" CornerRadius="12" Padding="20" HasShadow="True">
+                <VerticalStackLayout Spacing="12">
+
+                    <Label Text="Módulo:" FontSize="14" TextColor="#757575"/>
+                    <Picker x:Name="PickerModulo" Title="Selecione o módulo"
+                            TextColor="#000000" BackgroundColor="#F5F5F5"/>
+
+                    <Label Text="Pergunta:" FontSize="14" TextColor="#757575"/>
+                    <Editor x:Name="EditorPergunta"
+                            Placeholder="Digite a pergunta"
+                            HeightRequest="80"
+                            TextColor="#000000"
+                            BackgroundColor="#F5F5F5"/>
+
+                    <Label Text="Opções (separe por |):" FontSize="14" TextColor="#757575"/>
+                    <Entry x:Name="EntryOpcoes"
+                           Placeholder="Ex: Sim|Não|Talvez"
+                           TextColor="#000000"
+                           BackgroundColor="#F5F5F5"/>
+
+                    <Label Text="Resposta Correta:" FontSize="14" TextColor="#757575"/>
+                    <Entry x:Name="EntryResposta"
+                           Placeholder="Digite a resposta correta"
+                           TextColor="#000000"
+                           BackgroundColor="#F5F5F5"/>
+
+                    <Label Text="Pontuação:" FontSize="14" TextColor="#757575"/>
+                    <Entry x:Name="EntryPontuacao"
+                           Placeholder="Ex: 10"
+                           Keyboard="Numeric"
+                           TextColor="#000000"
+                           BackgroundColor="#F5F5F5"/>
+
+                    <Label x:Name="LabelMensagem" IsVisible="False" FontSize="13" HorizontalOptions="Center"/>
+
+                    <Button Text="Salvar Atividade"
+                            Clicked="OnSalvarClicked"
+                            BackgroundColor="#1565C0"
+                            TextColor="White"
+                            CornerRadius="8"
+                            HeightRequest="50"/>
+
+                </VerticalStackLayout>
+            </Frame>
+
+        </VerticalStackLayout>
+    </ScrollView>
+
 </ContentPage>

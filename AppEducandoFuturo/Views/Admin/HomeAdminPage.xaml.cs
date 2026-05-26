@@ -1,12 +1,12 @@
 using AppEducandoFuturo.Services;
 
-namespace AppEducandoFuturo.Views.Aluno
+namespace AppEducandoFuturo.Views.Admin
 {
-    public partial class HomePage : ContentPage
+    public partial class HomeAdminPage : ContentPage
     {
         private readonly AuthService _authService;
 
-        public HomePage(AuthService authService)
+        public HomeAdminPage(AuthService authService)
         {
             InitializeComponent();
             _authService = authService;
@@ -15,21 +15,18 @@ namespace AppEducandoFuturo.Views.Aluno
         protected override void OnAppearing()
         {
             base.OnAppearing();
-
-            var usuario = _authService.UsuarioLogado;
-            LabelSaudacao.Text = $"Olá, {usuario.Nome}!";
-            LabelPontuacao.Text = usuario.PontuacaoTotal.ToString();
+            LabelSaudacao.Text = $"Olá, {_authService.UsuarioLogado.Nome}!";
         }
 
-        private async void OnModulosTapped(object sender, EventArgs e)
+        private async void OnGerenciarUsuariosTapped(object sender, EventArgs e)
         {
-            var page = Handler.MauiContext.Services.GetService<ModulosPage>();
+            var page = Handler.MauiContext.Services.GetService<GerenciarUsuariosPage>();
             await Navigation.PushAsync(page);
         }
 
-        private async void OnProgressoTapped(object sender, EventArgs e)
+        private async void OnRelatoriosTapped(object sender, EventArgs e)
         {
-            var page = Handler.MauiContext.Services.GetService<ProgressoPage>();
+            var page = Handler.MauiContext.Services.GetService<RelatoriosPage>();
             await Navigation.PushAsync(page);
         }
         private async void OnNotificacoesTapped(object sender, EventArgs e)

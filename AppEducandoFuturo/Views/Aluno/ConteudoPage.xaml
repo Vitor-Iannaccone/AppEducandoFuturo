@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="AppEducandoFuturo.Views.Aluno.ConteudoPage"
+             Title="Conteúdo"
+             BackgroundColor="#F5F5F5">
+
+    <Grid RowDefinitions="Auto, *, Auto">
+
+        <!-- Cabeçalho do Módulo -->
+        <Frame Grid.Row="0"
+               BackgroundColor="#2E7D32"
+               CornerRadius="0"
+               Padding="20"
+               HasShadow="True">
+            <VerticalStackLayout Spacing="4">
+                <Label x:Name="LabelTitulo"
+                       FontSize="20"
+                       FontAttributes="Bold"
+                       TextColor="White"/>
+                <Label x:Name="LabelTema"
+                       FontSize="13"
+                       TextColor="#C8E6C9"/>
+            </VerticalStackLayout>
+        </Frame>
+
+        <!-- Conteúdo -->
+        <ScrollView Grid.Row="1" Padding="15">
+            <VerticalStackLayout Spacing="15">
+
+                <Label x:Name="LabelDescricao"
+                       FontSize="15"
+                       TextColor="#424242"
+                       LineBreakMode="WordWrap"/>
+
+                <BoxView HeightRequest="1" Color="#E0E0E0"/>
+
+                <Label Text="📝 Atividades"
+                       FontSize="18"
+                       FontAttributes="Bold"
+                       TextColor="#2E7D32"/>
+
+                <CollectionView x:Name="CollectionAtividades"
+                                SelectionMode="None">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Frame BackgroundColor="White"
+                                   CornerRadius="12"
+                                   Padding="15"
+                                   Margin="0,5"
+                                   HasShadow="True">
+                                <Frame.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="OnAtividadeTapped"
+                                                          CommandParameter="{Binding .}"/>
+                                </Frame.GestureRecognizers>
+                                <VerticalStackLayout Spacing="5">
+                                    <Label Text="{Binding Pergunta}"
+                                           FontSize="15"
+                                           FontAttributes="Bold"
+                                           TextColor="#212121"/>
+                                    <Label Text="Toque para responder"
+                                           FontSize="12"
+                                           TextColor="#2E7D32"
+                                           FontAttributes="Italic"/>
+                                </VerticalStackLayout>
+                            </Frame>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+
+                    <CollectionView.EmptyView>
+                        <Label Text="Nenhuma atividade neste módulo ainda."
+                               FontSize="14"
+                               TextColor="#757575"
+                               HorizontalOptions="Center"/>
+                    </CollectionView.EmptyView>
+                </CollectionView>
+
+            </VerticalStackLayout>
+        </ScrollView>
+
+    </Grid>
+
+</ContentPage>

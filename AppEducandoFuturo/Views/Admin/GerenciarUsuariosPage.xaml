@@ -2,11 +2,53 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="AppEducandoFuturo.Views.Admin.GerenciarUsuariosPage"
-             Title="GerenciarUsuariosPage">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+             Title="Gerenciar Usuários"
+             BackgroundColor="#F5F5F5">
+
+    <Grid RowDefinitions="Auto, *">
+
+        <!-- Cabeçalho -->
+        <Frame Grid.Row="0" BackgroundColor="#4A148C" CornerRadius="0" Padding="20">
+            <Label Text="👥 Gerenciar Usuários"
+                   FontSize="20" FontAttributes="Bold" TextColor="White"/>
+        </Frame>
+
+        <!-- Lista de Usuários -->
+        <CollectionView Grid.Row="1" x:Name="CollectionUsuarios" Margin="10" SelectionMode="None">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Frame BackgroundColor="White" CornerRadius="12" Padding="15" Margin="0,5" HasShadow="True">
+                        <Grid ColumnDefinitions="*, Auto">
+                            <VerticalStackLayout Grid.Column="0" Spacing="3">
+                                <Label Text="{Binding Nome}"
+                                       FontSize="16"
+                                       FontAttributes="Bold"
+                                       TextColor="#212121"/>
+                                <Label Text="{Binding Email}"
+                                       FontSize="13"
+                                       TextColor="#757575"/>
+                                <Label Text="{Binding TipoUsuario}"
+                                       FontSize="12"
+                                       TextColor="#4A148C"
+                                       FontAttributes="Italic"/>
+                            </VerticalStackLayout>
+                            <Button Grid.Column="1"
+                                    Text="🗑"
+                                    Clicked="OnDeletarClicked"
+                                    CommandParameter="{Binding .}"
+                                    BackgroundColor="Transparent"
+                                    TextColor="#D32F2F"
+                                    FontSize="20"/>
+                        </Grid>
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+            <CollectionView.EmptyView>
+                <Label Text="Nenhum usuário cadastrado."
+                       FontSize="14" TextColor="#757575" HorizontalOptions="Center"/>
+            </CollectionView.EmptyView>
+        </CollectionView>
+
+    </Grid>
+
 </ContentPage>

@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="AppEducandoFuturo.Views.NotificacoesPage"
+             Title="Notificações"
+             BackgroundColor="#F5F5F5">
+
+    <Grid RowDefinitions="Auto, Auto, *">
+
+        <!-- Cabeçalho -->
+        <Frame Grid.Row="0" BackgroundColor="#E65100" CornerRadius="0" Padding="20">
+            <Label Text="🔔 Notificações"
+                   FontSize="20" FontAttributes="Bold" TextColor="White"/>
+        </Frame>
+
+        <!-- Formulário de envio — só aparece para Admin -->
+        <Frame Grid.Row="1"
+               x:Name="FrameEnvio"
+               BackgroundColor="White"
+               CornerRadius="12"
+               Padding="20"
+               Margin="10"
+               HasShadow="True"
+               IsVisible="False">
+            <VerticalStackLayout Spacing="10">
+                <Label Text="Enviar Notificação" FontSize="16" FontAttributes="Bold" TextColor="#E65100"/>
+
+                <Picker x:Name="PickerDestinatario"
+                        Title="Selecione o destinatário"
+                        TextColor="#000000"
+                        BackgroundColor="#F5F5F5"/>
+
+                <Entry x:Name="EntryTitulo"
+                       Placeholder="Título da notificação"
+                       TextColor="#000000"
+                       BackgroundColor="#F5F5F5"/>
+
+                <Editor x:Name="EditorMensagem"
+                        Placeholder="Mensagem"
+                        HeightRequest="80"
+                        TextColor="#000000"
+                        BackgroundColor="#F5F5F5"/>
+
+                <Label x:Name="LabelMensagemFeedback"
+                       IsVisible="False"
+                       FontSize="13"
+                       HorizontalOptions="Center"/>
+
+                <Button Text="Enviar"
+                        Clicked="OnEnviarClicked"
+                        BackgroundColor="#E65100"
+                        TextColor="White"
+                        CornerRadius="8"
+                        HeightRequest="45"/>
+            </VerticalStackLayout>
+        </Frame>
+
+        <!-- Lista de Notificações -->
+        <CollectionView Grid.Row="2"
+                        x:Name="CollectionNotificacoes"
+                        Margin="10"
+                        SelectionMode="None">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Frame CornerRadius="12"
+                           Padding="15"
+                           Margin="0,5"
+                           HasShadow="True"
+                           BackgroundColor="{Binding CorFundo}">
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnNotificacaoTapped"
+                                                  CommandParameter="{Binding .}"/>
+                        </Frame.GestureRecognizers>
+                        <Grid ColumnDefinitions="*, Auto">
+                            <VerticalStackLayout Grid.Column="0" Spacing="4">
+                                <Label Text="{Binding Titulo}"
+                                       FontSize="16"
+                                       FontAttributes="Bold"
+                                       TextColor="#212121"/>
+                                <Label Text="{Binding Mensagem}"
+                                       FontSize="13"
+                                       TextColor="#424242"
+                                       LineBreakMode="WordWrap"/>
+                                <Label Text="{Binding DataFormatada}"
+                                       FontSize="11"
+                                       TextColor="#9E9E9E"/>
+                                <Label Text="● Não lida"
+                                       FontSize="11"
+                                       TextColor="#E65100"
+                                       IsVisible="{Binding NaoLida}"/>
+                            </VerticalStackLayout>
+                            <Button Grid.Column="1"
+                                    Text="🗑"
+                                    Clicked="OnDeletarClicked"
+                                    CommandParameter="{Binding Id}"
+                                    BackgroundColor="Transparent"
+                                    TextColor="#D32F2F"
+                                    FontSize="20"/>
+                        </Grid>
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+
+            <CollectionView.EmptyView>
+                <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Center" Spacing="10">
+                    <Label Text="🔕" FontSize="48" HorizontalOptions="Center"/>
+                    <Label Text="Nenhuma notificação."
+                           FontSize="15" TextColor="#757575" HorizontalOptions="Center"/>
+                </VerticalStackLayout>
+            </CollectionView.EmptyView>
+        </CollectionView>
+
+    </Grid>
+
+</ContentPage>

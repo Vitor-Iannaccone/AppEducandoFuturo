@@ -1,17 +1,11 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-
-namespace AppEducandoFuturo
+﻿namespace AppEducandoFuturo
 {
     public partial class App : Application
     {
-        public App()
+        public App(Views.Auth.LoginPage loginPage)
         {
             InitializeComponent();
-        }
-
-        protected override Window CreateWindow(IActivationState? activationState)
-        {
-            return new Window(new AppShell());
+            MainPage = new NavigationPage(loginPage);
         }
     }
 }

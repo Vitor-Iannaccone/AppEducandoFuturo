@@ -1,74 +1,58 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="AppEducandoFuturo.Views.Aluno.HomePage"
-             Title="Início"
+             x:Class="AppEducandoFuturo.Views.Educador.HomeEducadorPage"
+             Title="Painel do Educador"
              BackgroundColor="#F5F5F5">
 
     <ScrollView>
         <VerticalStackLayout Padding="20" Spacing="20">
 
             <!-- Cabeçalho -->
-            <Frame BackgroundColor="#2E7D32" CornerRadius="12" Padding="20" HasShadow="True">
+            <Frame BackgroundColor="#1565C0" CornerRadius="12" Padding="20" HasShadow="True">
                 <VerticalStackLayout Spacing="5">
                     <Label x:Name="LabelSaudacao"
                            FontSize="22"
                            FontAttributes="Bold"
                            TextColor="White"/>
-                    <Label Text="Bom estudo!"
+                    <Label Text="Painel do Educador"
                            FontSize="14"
-                           TextColor="#C8E6C9"/>
+                           TextColor="#BBDEFB"/>
                 </VerticalStackLayout>
             </Frame>
 
-            <!-- Pontuação -->
-            <Frame BackgroundColor="White" CornerRadius="12" Padding="20" HasShadow="True">
-                <HorizontalStackLayout Spacing="15" HorizontalOptions="Center">
-                    <Label Text="⭐" FontSize="30"/>
-                    <VerticalStackLayout>
-                        <Label Text="Pontuação Total"
-                               FontSize="13"
-                               TextColor="#757575"/>
-                        <Label x:Name="LabelPontuacao"
-                               FontSize="24"
-                               FontAttributes="Bold"
-                               TextColor="#2E7D32"/>
-                    </VerticalStackLayout>
-                </HorizontalStackLayout>
-            </Frame>
-
-            <!-- Card Módulos -->
+            <!-- Card Gerenciar Módulos -->
             <Frame BackgroundColor="White" CornerRadius="12" Padding="20" HasShadow="True">
                 <Frame.GestureRecognizers>
-                    <TapGestureRecognizer Tapped="OnModulosTapped"/>
+                    <TapGestureRecognizer Tapped="OnGerenciarModulosTapped"/>
                 </Frame.GestureRecognizers>
                 <HorizontalStackLayout Spacing="15">
                     <Label Text="📚" FontSize="36"/>
                     <VerticalStackLayout VerticalOptions="Center">
-                        <Label Text="Módulos"
+                        <Label Text="Gerenciar Módulos"
                                FontSize="18"
                                FontAttributes="Bold"
                                TextColor="#212121"/>
-                        <Label Text="Acesse os conteúdos disponíveis"
+                        <Label Text="Criar e editar módulos de ensino"
                                FontSize="13"
                                TextColor="#757575"/>
                     </VerticalStackLayout>
                 </HorizontalStackLayout>
             </Frame>
 
-            <!-- Card Progresso -->
+            <!-- Card Inserir Atividade -->
             <Frame BackgroundColor="White" CornerRadius="12" Padding="20" HasShadow="True">
                 <Frame.GestureRecognizers>
-                    <TapGestureRecognizer Tapped="OnProgressoTapped"/>
+                    <TapGestureRecognizer Tapped="OnInserirAtividadeTapped"/>
                 </Frame.GestureRecognizers>
                 <HorizontalStackLayout Spacing="15">
-                    <Label Text="📊" FontSize="36"/>
+                    <Label Text="✏️" FontSize="36"/>
                     <VerticalStackLayout VerticalOptions="Center">
-                        <Label Text="Meu Progresso"
+                        <Label Text="Inserir Atividade"
                                FontSize="18"
                                FontAttributes="Bold"
                                TextColor="#212121"/>
-                        <Label Text="Veja seu desempenho nos módulos"
+                        <Label Text="Adicionar questões aos módulos"
                                FontSize="13"
                                TextColor="#757575"/>
                     </VerticalStackLayout>
@@ -85,12 +69,12 @@
                     <VerticalStackLayout VerticalOptions="Center">
                         <Label Text="Notificações"
                    FontSize="18" FontAttributes="Bold" TextColor="#212121"/>
-                        <Label Text="Ver minhas notificações"
+                        <Label Text="Ver notificações recebidas"
                    FontSize="13" TextColor="#757575"/>
                     </VerticalStackLayout>
                 </HorizontalStackLayout>
             </Frame>
-
+            
             <!-- Botão Sair -->
             <Button Text="Sair"
                     Clicked="OnSairClicked"

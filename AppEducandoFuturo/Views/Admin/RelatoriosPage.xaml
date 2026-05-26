@@ -2,11 +2,53 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="AppEducandoFuturo.Views.Admin.RelatoriosPage"
-             Title="RelatoriosPage">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+             Title="Relatórios"
+             BackgroundColor="#F5F5F5">
+
+    <Grid RowDefinitions="Auto, *">
+
+        <!-- Cabeçalho -->
+        <Frame Grid.Row="0" BackgroundColor="#4A148C" CornerRadius="0" Padding="20">
+            <Label Text="📈 Relatório de Desempenho"
+                   FontSize="20" FontAttributes="Bold" TextColor="White"/>
+        </Frame>
+
+        <!-- Lista de Alunos com Desempenho -->
+        <CollectionView Grid.Row="1" x:Name="CollectionRelatorio" Margin="10" SelectionMode="None">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Frame BackgroundColor="White" CornerRadius="12" Padding="15" Margin="0,5" HasShadow="True">
+                        <VerticalStackLayout Spacing="8">
+                            <Label Text="{Binding Nome}"
+                                   FontSize="16"
+                                   FontAttributes="Bold"
+                                   TextColor="#212121"/>
+                            <Label Text="{Binding Email}"
+                                   FontSize="13"
+                                   TextColor="#757575"/>
+                            <HorizontalStackLayout Spacing="10">
+                                <Label Text="⭐" FontSize="16"/>
+                                <Label Text="{Binding PontuacaoTexto}"
+                                       FontSize="14"
+                                       TextColor="#4A148C"
+                                       FontAttributes="Bold"/>
+                            </HorizontalStackLayout>
+                            <HorizontalStackLayout Spacing="10">
+                                <Label Text="📚" FontSize="16"/>
+                                <Label Text="{Binding ModulosTexto}"
+                                       FontSize="14"
+                                       TextColor="#757575"/>
+                            </HorizontalStackLayout>
+                        </VerticalStackLayout>
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+            <CollectionView.EmptyView>
+                <Label Text="Nenhum aluno encontrado."
+                       FontSize="14" TextColor="#757575" HorizontalOptions="Center"/>
+            </CollectionView.EmptyView>
+        </CollectionView>
+
+    </Grid>
+
 </ContentPage>

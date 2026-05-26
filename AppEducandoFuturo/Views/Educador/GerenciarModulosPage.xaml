@@ -2,11 +2,61 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="AppEducandoFuturo.Views.Educador.GerenciarModulosPage"
-             Title="GerenciarModulosPage">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+             Title="Gerenciar Módulos"
+             BackgroundColor="#F5F5F5">
+
+    <Grid RowDefinitions="Auto, Auto, *">
+
+        <!-- Cabeçalho -->
+        <Frame Grid.Row="0" BackgroundColor="#1565C0" CornerRadius="0" Padding="20">
+            <Label Text="📚 Gerenciar Módulos"
+                   FontSize="20" FontAttributes="Bold" TextColor="White"/>
+        </Frame>
+
+        <!-- Formulário novo módulo -->
+        <Frame Grid.Row="1" BackgroundColor="White" CornerRadius="12" Padding="20" Margin="10">
+            <VerticalStackLayout Spacing="10">
+                <Label Text="Novo Módulo" FontSize="16" FontAttributes="Bold" TextColor="#1565C0"/>
+                <Entry x:Name="EntryTitulo" Placeholder="Título do módulo" TextColor="#000000" BackgroundColor="#F5F5F5"/>
+                <Entry x:Name="EntryDescricao" Placeholder="Descrição" TextColor="#000000" BackgroundColor="#F5F5F5"/>
+                <Entry x:Name="EntryTema" Placeholder="Tema (ex: Sustentabilidade)" TextColor="#000000" BackgroundColor="#F5F5F5"/>
+                <Label x:Name="LabelMensagem" IsVisible="False" FontSize="13" HorizontalOptions="Center"/>
+                <Button Text="Salvar Módulo"
+                        Clicked="OnSalvarClicked"
+                        BackgroundColor="#1565C0"
+                        TextColor="White"
+                        CornerRadius="8"
+                        HeightRequest="45"/>
+            </VerticalStackLayout>
+        </Frame>
+
+        <!-- Lista de módulos -->
+        <CollectionView Grid.Row="2" x:Name="CollectionModulos" Margin="10" SelectionMode="None">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Frame BackgroundColor="White" CornerRadius="12" Padding="15" Margin="0,5" HasShadow="True">
+                        <Grid ColumnDefinitions="*, Auto">
+                            <VerticalStackLayout Grid.Column="0" Spacing="3">
+                                <Label Text="{Binding Titulo}" FontSize="16" FontAttributes="Bold" TextColor="#212121"/>
+                                <Label Text="{Binding Tema}" FontSize="13" TextColor="#1565C0"/>
+                            </VerticalStackLayout>
+                            <Button Grid.Column="1"
+                                    Text="🗑"
+                                    Clicked="OnDeletarClicked"
+                                    CommandParameter="{Binding .}"
+                                    BackgroundColor="Transparent"
+                                    TextColor="#D32F2F"
+                                    FontSize="20"/>
+                        </Grid>
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+            <CollectionView.EmptyView>
+                <Label Text="Nenhum módulo criado ainda."
+                       FontSize="14" TextColor="#757575" HorizontalOptions="Center"/>
+            </CollectionView.EmptyView>
+        </CollectionView>
+
+    </Grid>
+
 </ContentPage>

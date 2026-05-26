@@ -1,10 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using SQLite;
 
 namespace AppEducandoFuturo.Models
 {
-    internal class Progresso
+    public class Progresso
     {
+        [PrimaryKey, AutoIncrement]
+        public int Id { get; set; }
+
+        public int Pontuacao { get; set; } = 0;
+
+        public DateTime DataAtualizacao { get; set; } = DateTime.Now;
+
+        // FK para o Aluno
+        public int AlunoId { get; set; }
+
+        // FK para o Módulo
+        public int ModuloId { get; set; }
     }
 }

@@ -2,11 +2,64 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="AppEducandoFuturo.Views.Auth.LoginPage"
-             Title="LoginPage">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+             Title="Login"
+             BackgroundColor="#F5F5F5">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="30" Spacing="20" VerticalOptions="Center">
+
+            <!-- Logo / Título -->
+            <Label Text="Educando o Futuro"
+                   FontSize="28"
+                   FontAttributes="Bold"
+                   HorizontalOptions="Center"
+                   TextColor="#2E7D32"/>
+
+            <Label Text="Acesse sua conta"
+                   FontSize="14"
+                   HorizontalOptions="Center"
+                   TextColor="#757575"/>
+
+            <!-- Campo Email -->
+            <Entry x:Name="EntryEmail"
+                   Placeholder="E-mail"
+                   Keyboard="Email"
+                   BackgroundColor="White"
+                   TextColor="#212121"/>
+
+            <!-- Campo Senha -->
+            <Entry x:Name="EntrySenha"
+                   Placeholder="Senha"
+                   IsPassword="True"
+                   BackgroundColor="White"
+                   TextColor="#212121"/>
+
+            <!-- Mensagem de erro/sucesso -->
+            <Label x:Name="LabelMensagem"
+                   FontSize="13"
+                   HorizontalOptions="Center"
+                   IsVisible="False"/>
+
+            <!-- Botão Entrar -->
+            <Button Text="Entrar"
+                    Clicked="OnLoginClicked"
+                    BackgroundColor="#2E7D32"
+                    TextColor="White"
+                    CornerRadius="8"
+                    HeightRequest="50"/>
+
+            <!-- Link para Cadastro -->
+            <Label Text="Não tem conta? Cadastre-se"
+                   FontSize="13"
+                   HorizontalOptions="Center"
+                   TextColor="#2E7D32"
+                   TextDecorations="Underline">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnCadastroTapped"/>
+                </Label.GestureRecognizers>
+            </Label>
+
+        </VerticalStackLayout>
+    </ScrollView>
+
 </ContentPage>

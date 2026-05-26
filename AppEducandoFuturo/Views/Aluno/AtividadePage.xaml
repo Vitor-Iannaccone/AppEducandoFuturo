@@ -2,11 +2,51 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="AppEducandoFuturo.Views.Aluno.AtividadePage"
-             Title="AtividadePage">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+             Title="Atividade"
+             BackgroundColor="#F5F5F5">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="20">
+
+            <!-- Pergunta -->
+            <Frame BackgroundColor="#2E7D32" CornerRadius="12" Padding="20" HasShadow="True">
+                <VerticalStackLayout Spacing="8">
+                    <Label Text="❓ Pergunta"
+                           FontSize="13"
+                           TextColor="#C8E6C9"/>
+                    <Label x:Name="LabelPergunta"
+                           FontSize="18"
+                           FontAttributes="Bold"
+                           TextColor="White"
+                           LineBreakMode="WordWrap"/>
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- Opções de resposta -->
+            <VerticalStackLayout x:Name="StackOpcoes" Spacing="10"/>
+
+            <!-- Feedback -->
+            <Frame x:Name="FrameFeedback"
+                   IsVisible="False"
+                   CornerRadius="12"
+                   Padding="15">
+                <Label x:Name="LabelFeedback"
+                       FontSize="15"
+                       FontAttributes="Bold"
+                       HorizontalOptions="Center"/>
+            </Frame>
+
+            <!-- Botão Próxima -->
+            <Button x:Name="BtnProxima"
+                    Text="Próxima atividade"
+                    Clicked="OnProximaClicked"
+                    IsVisible="False"
+                    BackgroundColor="#2E7D32"
+                    TextColor="White"
+                    CornerRadius="8"
+                    HeightRequest="50"/>
+
+        </VerticalStackLayout>
+    </ScrollView>
+
 </ContentPage>
