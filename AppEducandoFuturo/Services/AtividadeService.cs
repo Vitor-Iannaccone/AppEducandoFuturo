@@ -38,7 +38,7 @@ namespace AppEducandoFuturo.Services
 
         // Verifica resposta e atualiza pontuação do aluno
         public async Task<(bool Correto, string Mensagem, int Pontos)> ResponderAsync(
-            int alunoId, Atividade atividade, string respostaAluno)
+     int alunoId, Atividade atividade, string respostaAluno)
         {
             bool correto = respostaAluno.Trim().ToLower() ==
                            atividade.RespostaCorreta.Trim().ToLower();
@@ -46,9 +46,16 @@ namespace AppEducandoFuturo.Services
             if (!correto)
                 return (false, "Resposta incorreta. Tente novamente!", 0);
 
-            // Atualiza ou cria o progresso do aluno no módulo
+            // Verifica se já respondeu essa atividade
             var progresso = await _progressoRepository
                 .BuscarPorAlunoEModuloAsync(alunoId, atividade.ModuloId);
+
+            var respondidas = progresso?.AtividadesRespondidas?
+                .Split(',', StringSplitOptions.RemoveEmptyEntries)
+                .Select(int.Parse).ToList() ?? new List<int>();
+
+            // Só pontua se ainda não respondeu essa atividade
+            bool jaRespondida = respondidas.Contains(atividade.Id);
 
             if (progresso == null)
             {
@@ -56,23 +63,34 @@ namespace AppEducandoFuturo.Services
                 {
                     AlunoId = alunoId,
                     ModuloId = atividade.ModuloId,
-                    Pontuacao = atividade.Pontuacao
+                    Pontuacao = jaRespondida ? 0 : atividade.Pontuacao,
+                    AtividadesRespondidas = atividade.Id.ToString()
                 };
             }
             else
             {
-                progresso.Pontuacao += atividade.Pontuacao;
+                if (!jaRespondida)
+                {
+                    progresso.Pontuacao += atividade.Pontuacao;
+                    progresso.AtividadesRespondidas = string.IsNullOrEmpty(progresso.AtividadesRespondidas)
+                        ? atividade.Id.ToString()
+                        : progresso.AtividadesRespondidas + "," + atividade.Id;
+                }
             }
 
             progresso.DataAtualizacao = DateTime.Now;
             await _progressoRepository.SalvarAsync(progresso);
 
-            // Atualiza a pontuação total do usuário
-            var usuario = await _usuarioRepository.BuscarPorIdAsync(alunoId);
-            usuario.PontuacaoTotal += atividade.Pontuacao;
-            await _usuarioRepository.SalvarAsync(usuario);
+            // Atualiza pontuação total do usuário só se não havia respondido
+            if (!jaRespondida)
+            {
+                var usuario = await _usuarioRepository.BuscarPorIdAsync(alunoId);
+                usuario.PontuacaoTotal += atividade.Pontuacao;
+                await _usuarioRepository.SalvarAsync(usuario);
+            }
 
-            return (true, $"Correto! +{atividade.Pontuacao} pontos!", atividade.Pontuacao);
+            return (true, $"Correto! +{(jaRespondida ? 0 : atividade.Pontuacao)} pontos!",
+                jaRespondida ? 0 : atividade.Pontuacao);
         }
     }
 }

@@ -11,10 +11,11 @@ namespace AppEducandoFuturo.Models
 
         public DateTime DataAtualizacao { get; set; } = DateTime.Now;
 
-        // FK para o Aluno
+        // IDs das atividades respondidas corretamente separados por vírgula
+        public string AtividadesRespondidas { get; set; } = "";
+
         public int AlunoId { get; set; }
 
-        // FK para o Módulo
         public int ModuloId { get; set; }
     }
 }

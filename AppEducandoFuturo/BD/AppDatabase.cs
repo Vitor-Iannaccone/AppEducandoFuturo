@@ -9,8 +9,8 @@ namespace AppEducandoFuturo.Data
         private static readonly SemaphoreSlim _semaphore = new SemaphoreSlim(1, 1);
 
         private static readonly string DbPath = Path.Combine(
-            FileSystem.AppDataDirectory, "educandofuturo.db3"
-        );
+    FileSystem.AppDataDirectory, "educandofuturo_v2.db3"
+);
 
         public static async Task<SQLiteAsyncConnection> GetDatabaseAsync()
         {
@@ -40,3 +40,5 @@ namespace AppEducandoFuturo.Data
         }
     }
 }
+
+

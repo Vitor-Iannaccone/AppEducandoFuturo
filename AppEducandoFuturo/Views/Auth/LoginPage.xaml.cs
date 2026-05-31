@@ -60,5 +60,12 @@ namespace AppEducandoFuturo.Views.Auth
             var cadastroPage = Handler.MauiContext.Services.GetService<Views.Auth.CadastroPage>();
             await Navigation.PushAsync(cadastroPage);
         }
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            EntryEmail.Text = string.Empty;
+            EntrySenha.Text = string.Empty;
+            LabelMensagem.IsVisible = false;
+        }
     }
 }

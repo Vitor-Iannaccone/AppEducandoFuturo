@@ -40,43 +40,50 @@
                        FontAttributes="Bold"
                        TextColor="#2E7D32"/>
 
-                <CollectionView x:Name="CollectionAtividades"
-                                SelectionMode="None">
+                <CollectionView x:Name="CollectionAtividades" SelectionMode="None">
                     <CollectionView.ItemTemplate>
                         <DataTemplate>
-                            <Frame BackgroundColor="White"
-                                   CornerRadius="12"
+                            <Frame CornerRadius="12"
                                    Padding="15"
                                    Margin="0,5"
-                                   HasShadow="True">
+                                   HasShadow="True"
+                                   BackgroundColor="{Binding CorFundo}">
                                 <Frame.GestureRecognizers>
                                     <TapGestureRecognizer Tapped="OnAtividadeTapped"
                                                           CommandParameter="{Binding .}"/>
                                 </Frame.GestureRecognizers>
                                 <VerticalStackLayout Spacing="5">
-                                    <Label Text="{Binding Pergunta}"
+                                    <Label Text="{Binding Atividade.Pergunta}"
                                            FontSize="15"
                                            FontAttributes="Bold"
                                            TextColor="#212121"/>
-                                    <Label Text="Toque para responder"
+                                    <Label Text="{Binding StatusTexto}"
                                            FontSize="12"
-                                           TextColor="#2E7D32"
+                                           TextColor="{Binding CorStatus}"
                                            FontAttributes="Italic"/>
                                 </VerticalStackLayout>
                             </Frame>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
-
                     <CollectionView.EmptyView>
                         <Label Text="Nenhuma atividade neste módulo ainda."
-                               FontSize="14"
-                               TextColor="#757575"
-                               HorizontalOptions="Center"/>
+                               FontSize="14" TextColor="#757575" HorizontalOptions="Center"/>
                     </CollectionView.EmptyView>
                 </CollectionView>
 
             </VerticalStackLayout>
         </ScrollView>
+
+        <!-- Botão Concluir Módulo -->
+        <Button Grid.Row="2"
+                x:Name="BtnConcluir"
+                Text="✅ Concluir Módulo"
+                Clicked="OnConcluirClicked"
+                BackgroundColor="#2E7D32"
+                TextColor="White"
+                CornerRadius="0"
+                HeightRequest="55"
+                IsVisible="False"/>
 
     </Grid>
 

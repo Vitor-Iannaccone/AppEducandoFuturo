@@ -46,26 +46,40 @@ namespace AppEducandoFuturo.Views.Aluno
             var (correto, mensagem, pontos) = await _atividadeService.ResponderAsync(
                 usuario.Id, _atividade, resposta);
 
-            // Atualiza o usuário na sessão com os dados mais recentes do banco
             await _authService.AtualizarUsuarioLogadoAsync();
 
-            // Desabilita todos os botões após responder
-            foreach (var child in StackOpcoes.Children)
+            if (!correto)
             {
-                if (child is Button btn)
-                    btn.IsEnabled = false;
+                // Pergunta se deseja tentar novamente
+                bool tentarNovamente = await DisplayAlert(
+                    "Resposta incorreta ❌",
+                    "Sua resposta está incorreta. Deseja tentar novamente?",
+                    "Sim", "Não");
+
+                if (tentarNovamente)
+                    return; // Mantém os botões ativos para tentar novamente
+
+                // Não quer tentar — exibe feedback e encerra
+                FrameFeedback.IsVisible = true;
+                FrameFeedback.BackgroundColor = Color.FromArgb("#FFEBEE");
+                LabelFeedback.Text = $"❌ {mensagem}";
+                LabelFeedback.TextColor = Color.FromArgb("#D32F2F");
+                BtnProxima.IsVisible = true;
+
+                foreach (var child in StackOpcoes.Children)
+                    if (child is Button btn) btn.IsEnabled = false;
+
+                return;
             }
 
-            // Exibe feedback
-            FrameFeedback.IsVisible = true;
-            FrameFeedback.BackgroundColor = correto
-                ? Color.FromArgb("#E8F5E9")
-                : Color.FromArgb("#FFEBEE");
-            LabelFeedback.Text = mensagem;
-            LabelFeedback.TextColor = correto
-                ? Color.FromArgb("#2E7D32")
-                : Color.FromArgb("#D32F2F");
+            // Correto — desabilita botões e exibe feedback
+            foreach (var child in StackOpcoes.Children)
+                if (child is Button btn) btn.IsEnabled = false;
 
+            FrameFeedback.IsVisible = true;
+            FrameFeedback.BackgroundColor = Color.FromArgb("#E8F5E9");
+            LabelFeedback.Text = $"✅ {mensagem}";
+            LabelFeedback.TextColor = Color.FromArgb("#2E7D32");
             BtnProxima.IsVisible = true;
         }
 
